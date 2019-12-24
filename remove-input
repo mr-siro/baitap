@@ -2,13 +2,10 @@
 <button>Search</button>
 <button id="clear" onclick="clearItem()">Clear</button>
 <script>
-let input = document.getElementById("name");
-let sayHiButton = document.getElementById("sayHiBtn")
-let sayHi = function() {
-  if (input.value !== "") {
-    alert(`Hi ${input.value}`);
-  }
+let input = document.getElementById("searchBox");
+let clearButton = document.getElementById("clear")
+let clearItem = function () {
   input.value = "";
-};
-sayHiButton.addEventListener("click", sayHi)
+  }
+clear.addEventListener("click", clearItem)
 </script>
