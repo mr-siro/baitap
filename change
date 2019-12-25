@@ -1,0 +1,43 @@
+<input type="text" id="searchInput" placeholder="Search by phone number..." />
+<ul id="userList">
+
+</ul>
+/*---------------------*/
+var users = [
+    { 
+      name: 'Thinh', 
+      phone: '070123123'
+    },
+    {
+      name: 'Hung',
+      phone: '080456456'
+    },
+    {
+      name: 'Hoang',
+      phone: '090123123'
+    }
+  ];
+  var userList = document.getElementById('userList');
+  var searchInput = document.getElementById('searchInput');
+
+  function render(users) {
+    var content = users.map(function(user) {
+      return '<li>' + user.name + ' - ' + user.phone + '</li>';
+    });
+    userList.innerHTML = content.join('');
+  }
+
+  render(users);
+
+searchInput.addEventListener('keyup',function(event){
+            var value = searchInput.value;
+            var user = users.filter(function(a){
+                if(a.phone === String(value)) { 
+                    return a;
+                }
+            });
+            var stringuser = user.map(function(a){
+                return '<li>' + a.name + '-' + a.phone + '</li>';
+            });
+            userList.innerHTML = stringuser.join('');   
+        });
