@@ -1,0 +1,127 @@
+var jsonserver = require ('json-server')
+var axios = require ('axios')
+var oldObj = {
+	title: "post-test",
+  	author: "pasestars"
+ };
+ // Phương thức GET http://localhost:3000/posts
+// Trả về một mảng các object được get từ URI
+
+// Phương thức GET http://localhost:3000/posts/1
+// Trả về một phần tử object có id là 1 được get từ URI
+
+// Phương thức GET http://localhost:3000/profile
+// Trả về một phần tử object có id là 1 được get từ URI
+
+// Có thể hiểu phương thức GET là lấy dữ liệu từ URI tương ứng
+ axios.get('http://localhost:3000/profile')
+	.then(function(res) {
+		console.log(res.data);
+	})
+	.catch(function(err) {
+		console.log('error');
+	});
+
+// Phương thức POST http://localhost:3000/posts
+/**
+* Gửi lên một object vào json-server
+* Nếu object chưa có key là id
+* thì id sẽ được tạo ra trên json-server
+* giá trị của id sẽ là giá trị kế tiếp trên json-server
+* ví dụ trong posts có mảng 2 phần tử thì khi POST
+* json-server sẽ thêm vào id có giá trị là 3
+* Nếu object đã có key là id mà id là giá trị kế tiếp
+* thì sẽ POST thành công, nếu không thì báo lỗi code 500
+*/
+
+// Phương thức POST http://localhost:3000/posts/2
+// json-server không cho phép post mà có id, 2 ở đây là id
+// Trả về lỗi 404
+
+// Phương thức POST http://localhost:3000/profile
+// Phương thức xóa luôn thằng value của profile
+// và gán oldObj thay thế vào đó
+// Phương thức POST mà lại update dữ liệu?
+
+// Có thể hiểu phương thức POST là tạo thêm object vào cuối
+// một mảng đối với plural routes (URI số nhiều)
+// là thay thế một object đối với singular routes (URI số ít)
+axios.post('http://localhost:3000/posts', oldObj)
+	.then(function(res) {	
+		console.log(res.data);
+	})
+	.catch(function(err) {
+		console.log('error');
+	});
+  // Phương thức PUT http://localhost:3000/posts/2
+// PUT http://localhost:3000/profile
+// Phương thức sửa phần từ thứ 2 trong Object thành oldObj
+// mà nếu object mới được truyền vào mà có id khác với id trong URI
+// thì id được ghi vào db.json vẫn là id của URI
+
+// Phương thức PUT http://localhost:3000/posts
+// PUT http://localhost:3000/posts/4
+// Trả về lỗi 404
+
+// Có một số server API sẽ trả về key bị thiếu trong object
+// với giá trị là undefined
+
+// Có thể hiểu phương thức PUT là sửa kiểu thay thế object luôn
+// thay thế object cũ thành object được truyền vào trong medthod
+axios.put('http://localhost:3000/posts/2', oldObj)
+	.then(function(res) {
+		console.log(res.data);
+	})
+	.catch(function(err) {
+		console.log('error');
+	});
+  /**
+* Phương thức PATCH http://localhost:3000/posts/2
+* PUT http://localhost:3000/profile
+* Phương thức này mình đọc trên mạng thấy rất bá
+* Cho phép thêm, sửa, xóa một key trong object tương ứng
+* Ở đây mình nói về thêm và sửa trước
+* Khi object truyền vào PATCH mà có key khác nhau
+* thì key thừa sẽ được thêm vào object
+* key thiếu thì không thay đổi về giá trị, không bị trả về undefined
+* key giống nhau mà giá trị value khác nhau thì sẽ thay đổi value
+* trên mạng nói nhập kiểu thừa thiếu này là dùng kiểu không hiểu biết
+* nhưng mà kiểu hiểu biết hình như json-server không hỗ trợ
+* nên hình như không xóa được key, mình cũng không biết?
+* mà nếu object mới được truyền vào mà có id khác với id trong URI
+* thì id được ghi vào db.json vẫn là id của URI
+*/
+
+// Phương thức PATCH http://localhost:3000/posts
+// PATCH http://localhost:3000/posts/4
+// Trả về lỗi 404
+
+// Có thể hiểu phương thức PATCH là sửa kiểu từng key trong object
+
+axios.patch('http://localhost:3000/posts/2', oldObj)
+	.then(function(res) {
+		console.log(res.data);
+	})
+	.catch(function(err) {
+		console.log('error');
+	});
+
+
+// Phương thức DELETE http://localhost:3000/posts/2
+// Phương thức xóa một object phần tử thứ 2 trong posts
+
+// Phương thức DELETE http://localhost:3000/posts
+// DELETE http://localhost:3000/profile
+// DELETE http://localhost:3000/posts/4
+// Trả về 404
+
+// Có thể hiểu phương thức DELETE là xóa một object trong 
+// plural routes (URI số nhiều) với id tương ứng
+
+axios.delete('http://localhost:3000/posts/4')
+	.then(function(res) {
+		console.log(res.data);
+	})
+	.catch(function(err) {
+		console.log('error');
+	});
